@@ -6,18 +6,31 @@ import Collapse from '@mui/material/Collapse';
 
 import './App.css';
 
-const cardContent = [1, 2, 3, 4, 5, 6]
-const firstThreeCardContent = cardContent.slice(0, 3)
-const restOfCardContent = cardContent.slice(3)
+const THE_CARDS = [1, 2, 3, 4, 5, 6]
+
 
 function App() {
   const [collapsed, setCollapsed] = React.useState(false)
+  const [cardContent, setCardContent] = React.useState([])
+
+  const firstThreeCards = cardContent.slice(0, 3)
+  const restOfCards = cardContent.slice(3)
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setCardContent(THE_CARDS)
+    }, 1000)
+  }, [])
+
+  if (cardContent.length === 0) {
+    return <h1>Loading...</h1>
+  }
 
   return (
     <>
       <div className="cardGrid">
-        {firstThreeCardContent.map((item, index) => (
-          <Card sx={{ minWidth: 275 }} key={index}>
+        {firstThreeCards.map((item, index) => (
+          <Card sx={{ minWidth: 275 }} key={index} as="a" href="/">
             <CardContent>
               <h1>Card {item}</h1>
             </CardContent>
@@ -26,8 +39,8 @@ function App() {
       </div>
       <Collapse in={collapsed}>
         <div className="cardGrid">
-          {restOfCardContent.map((item, index) => (
-            <Card sx={{ minWidth: 275 }} key={index}>
+          {restOfCards.map((item, index) => (
+            <Card sx={{ minWidth: 275 }} key={index} as="a" href="/">
               <CardContent>
                 <h1>Card {item}</h1>
               </CardContent>
