@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/prefer-screen-queries */
 import { test, expect } from '@playwright/test';
 
 test('cards', async ({ page }) => {
@@ -5,6 +6,7 @@ test('cards', async ({ page }) => {
   const appCardLocators = page.getByRole('link').filter({ hasText: /card/i })
   await appCardLocators.first().waitFor();
 
+  // Playwright says that the .all() API is flaky and unpredictable. So of course it doesn't work.
   let appCards = await appCardLocators.all()
   expect(appCards.length).toBe(3)
 
